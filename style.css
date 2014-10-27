@@ -25,7 +25,8 @@ header {background-color:#1D3037;min-height:60px;width:100%;}
 .centertext {text-align:center;}
 .clearfix:after, .clearfix:before {content:" ";display:block;clear:both;height:0;overflow: hidden;}
 .table-cell{display:table-cell;vertical-align:middle;}
-#main{padding:20px 0;overflow: hidden;}
+#main{position:absolute;top:50%;height:50%;margin:-300px 0 0 -300px;}
+#main div{width:200px;height:200px;background-color:#cecece;display:inline-block;color:#000;font-size:40px;text-align:center;line-height:200px;}
 footer{min-height:60px;color:#fff;font-size: 12px;margin-top:-60px;}
 .copyright{background-color: #0d1a1f;min-height: 60px;overflow: hidden;}
 .copyright .float_left, .copyright .float_right{padding: 20px 0;}
