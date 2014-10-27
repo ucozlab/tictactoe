@@ -1,23 +1,33 @@
-[jQuery Zoom Plugin](http://www.elevateweb.co.uk/image-zoom/)
-================================
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>тайтл</title>
+    <link type="text/css" rel="StyleSheet" href="/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <?$META_DESCRIPTION$?>
+	<!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="page">
+        <header>Крестики нолики</header>
+	<div class="wrapper">
+		<div id="main">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div><!--//endmain-->
+	</div><!--//endwrapper-->
+</div><!--//endpage-->
 
-elevateZoom - A jQuery image zoom plugin
+<div class="page-buffer"></div>
 
-
-## Getting Started
-
-Include jQuery and the plugin on a page. Include your images and initialise the plugin.
-
-```html
-<img id="zoom_01" src='images/small/image1.png' data-zoom-image="images/large/image1.jpg"/>
-
-<script>
-    $('#zoom_01').elevateZoom();
-</script>
-```
-
-For more information on how to setup and customise, [check the examples](http://www.elevateweb.co.uk/image-zoom/examples).
-
-## License
-Copyright (c) 2012 Andrew Eades
-Dual licensed under the GPL and MIT licenses.
+</body>
+</html>
