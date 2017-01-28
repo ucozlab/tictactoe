@@ -1,0 +1,34 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "tictactoe homework 4 masters courses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ucozlab/tictactoe.git"
+  },
+  "author": "Artem ucozlab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ucozlab/tictactoe/issues"
+  },
+  "homepage": "https://github.com/ucozlab/tictactoe#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-cli": "^1.2.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^2.2.0",
+    "gulp-uglifyjs": "^0.6.2",
+    "gulp-webserver": "^0.9.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6"
+  }
+}
