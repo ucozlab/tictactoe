@@ -1,15 +1,18 @@
 html, body {
   height: 100%;
 }
+
 body {
   background-color: $white2;
 }
+
 a,
 input,
 textarea,
 .button {
   transition: $transition;
 }
+
 a {
   text-decoration: none;
   &:hover, &:focus, &:active {
@@ -17,12 +20,14 @@ a {
     outline: 0;
   }
 }
+
 h1, .h1 {
   text-transform: uppercase;
   font-size: 24px;
   line-height: 33px;
   font-weight: normal;
 }
+
 .page {
   min-height: 100%;
   margin-bottom: -40px;
@@ -31,41 +36,53 @@ h1, .h1 {
     height: 40px;
   }
 }
+
 .header {
   padding-top: 40px;
 }
+
 .content {
   text-align: center;
 }
-.game {
-  display         : flex;
-  justify-content : space-between;
 
-  width   : 400px;
-  height  : 400px;
-  padding : 5px;
-  border  : 1px solid $main;
-  margin  : 0 auto;
-
+.board {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  height: 400px;
+  padding: 5px;
+  border: 1px solid $main;
+  margin: 0 auto;
   .column {
-    display         : flex;
-    flex-direction  : column;
-    justify-content : space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .square {
-    display : block;
-    width   : 125px;
-    height  : 125px;
-    border  : 1px solid $main;
-    color       : $main;
-    font-size   : 5em;
-    font-weight : 100;
-    text-align  : center;
-    padding     : 20px;
-    line-height : 100%;
+    display: block;
+    width: 125px;
+    height: 125px;
+    border: 1px solid $main;
+    color: $main;
+    font-size: 5em;
+    font-weight: 100;
+    text-align: center;
+    padding: 20px;
+    line-height: 100%;
+    position: relative;
+    z-index: 1;
     &:hover {
       background-color: $blue;
     }
+    &.zero:hover {
+      background-color: $red;
+    }
+  }
+  .canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }
 

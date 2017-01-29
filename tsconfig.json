@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src/scripts",
+    "sourceRoot": "./src/scripts",
+    "outDir": "tmp",
+    "target": "es5",
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "node",
+      "jquery"
+    ],
+    "typeroots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

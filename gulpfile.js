@@ -8,9 +8,16 @@ var gulp           = require('gulp'),
     concat         = require('gulp-concat'),
     uglify         = require('gulp-uglifyjs'),
     babel          = require('gulp-babel'),
-    paths          = {
+    sourcemaps     = require('gulp-sourcemaps'),
+    tslint         = require('gulp-tslint'),
+    ts             = require('gulp-typescript'),
+    tsProject      = ts.createProject('tsconfig.json',  {
+        typescript: require('typescript')
+    }),
+    paths           = {
         scripts : [
-            './src/scripts/main.js'
+            './node_modules/jquery/dist/jquery.js',
+            './src/scripts/tmp/*.js'
         ]
     };
 
@@ -29,18 +36,31 @@ gulp.task('watch-scss', function() {
     gulp.watch('src/styles/*.scss', ['compile-scss']);
 });
 
-gulp.task('compile-js', function() {
+gulp.task('tslint', () => {
+    return gulp.src("src/**/*.ts")
+        .pipe(tslint({
+            formatter: 'prose'
+        }))
+        .pipe(tslint.report());
+});
+
+gulp.task("compile-ts", ["tslint"], () => {
+    let tsResult = gulp.src("src/**/*.ts").pipe(tsProject());
+    return tsResult.pipe(gulp.dest("./src/scripts"));
+});
+
+gulp.task('compile-js', ["compile-ts"], function() {
     gulp.src(paths.scripts)
         .pipe(concat('main.js'))
-        .pipe(babel({
-            presets: ['es2015']
-        }))
+        // .pipe(babel({
+        //     presets: ['es2015']
+        // }))
         // .pipe(uglify())
         .pipe(gulp.dest('./app/dist/js/'));
 });
 
 gulp.task('watch-js', function() {
-    gulp.watch(paths.scripts, ['compile-js']);
+    gulp.watch('./src/scripts/*.ts', ['compile-js']);
 });
 
 gulp.task('webserver', function() {
