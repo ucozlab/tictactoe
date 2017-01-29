@@ -4,48 +4,113 @@ class Game {
     buttons: any;
     board: number[];
     game: FinishGame;
-    canvas: any;
 
     constructor() {
 
         this.el = $(".board");
         this.buttons = this.el.find(".square");
-        this.canvas = this.el.find(".canvas");
 
         this.addEventListeners();
         this.start();
+        $(document).focus();    // 4 keyboard nav
     }
 
     addEventListeners() {
         this.buttons.click(() => {
-
-            const button = $(event.currentTarget);
-
-            if (!(button.hasClass("zero") || button.hasClass("ex"))) {
-                button.addClass("ex").text("X");
-                this.board[button.attr("data-square")] = 1;
-                this.checkWinner(1) ? this.finishGame() : this.cpuMove();
-            }
+            this.buttonSet($(event.currentTarget));
         });
+
+        this.buttons.on("mouseover", () => {
+            this.buttons.removeClass("active");
+            $(event.currentTarget).addClass("active");
+        });
+
+        $(document).on("keyup", (e) => {
+
+            if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+
+                let nextActive, activeNow = this.el.find(".active"), activeNowNumber = +activeNow.attr("data-square");
+
+                // left
+                if (e.keyCode === 37 && !([0, 3, 6].indexOf(activeNowNumber) > -1)) {
+                    nextActive = this.el.find(`[data-square=${activeNowNumber - 1}]`);
+                    this.checkSet(nextActive);
+                }
+                // up
+                if (e.keyCode === 38 && !([0, 1, 2].indexOf(activeNowNumber) > -1)) {
+                    nextActive = activeNow.prev();
+                    this.checkSet(nextActive);
+                }
+                // right
+                if (e.keyCode === 39 && !([2, 5, 8].indexOf(activeNowNumber) > -1)) {
+                    nextActive = this.el.find(`[data-square=${activeNowNumber + 1}]`);
+                    this.checkSet(nextActive);
+                }
+                // down
+                if (e.keyCode === 40 && !([6, 7, 8].indexOf(activeNowNumber) > -1)) {
+                    nextActive = activeNow.next();
+                    this.checkSet(nextActive);
+                }
+
+            } else if (e.keyCode === 13) {
+                // enter
+                const activeNow = this.el.find(".active");
+                this.buttonSet(activeNow);
+                this.checkSet(activeNow);
+            }
+
+        });
+
+    }
+
+    buttonSet(button) {
+
+        if (!(button.hasClass("zero") || button.hasClass("ex"))) {
+            button.addClass("ex").text("X");
+            this.board[button.attr("data-square")] = 1;
+            this.checkWinner(1) ? this.finishGame() : this.cpuMove();
+        }
+
+    }
+
+    checkSet(button) {
+
+        if (!this.game) {
+            this.buttons.removeClass("active denied");
+            (button.hasClass("ex") || button.hasClass("zero"))
+                ? button.addClass("active denied")
+                : button.addClass("active");
+        }
+
     }
 
     start() {
-        this.buttons.text("").removeClass("ex").removeClass("zero");
+        this.buttons.text("").removeClass("ex zero denied active");
         this.board = [];
         this.game = null;
+        this.el.removeAttr("data-win-method");
+        this.buttons.eq(0).addClass("active");
     }
 
     cpuMove() {
         const button = this.getRandomButton();
 
-        if ( button.hasClass("ex") || button.hasClass("zero") ) {
-            this.cpuMove();
+        if ( !this.checkDraw() ) {
+            if ( button.hasClass("ex") || button.hasClass("zero") ) {
+                this.cpuMove();
+            } else {
+                button.addClass("zero").text("0");
+                this.board[button.attr("data-square")] = 0;
+                this.checkWinner(0) && this.finishGame();
+            }
         } else {
-            button.addClass("zero").text("0");
-            this.board[button.attr("data-square")] = 0;
-            this.checkWinner(0) && this.finishGame();
+            this.askNewGame();
         }
 
+    }
+
+    checkDraw(): boolean {
+        return ((this.el.find(".ex").length + this.el.find(".zero").length) === 9);
     }
 
     getRandomButton() {
@@ -76,29 +141,30 @@ class Game {
             method: method
         });
 
+        method && this.el.attr("data-win-method", method);
+
         return this.game;
 
     }
 
     finishGame() {
-
         let winCount: number = +$(`.js-won[data-id=${this.game.winner}]`).text();
         $(`.js-won[data-id=${this.game.winner}]`).text(++winCount);
-
-        setTimeout(() => {
-            let question: boolean = confirm(`${this.game.winner === 1 ? "player" : "cpu"} wins! Do you want to start new game?`);
-            question && this.start();
-        }, 1000);
-
+        this.askNewGame();
     }
 
-    drawLine() {
-        var context = this.canvas.getContext('2d');
-
-        context.beginPath();
-        context.moveTo(64, 64);
-        context.lineTo(336, 336;
-        context.stroke();
+    askNewGame() {
+        setTimeout(() => {
+            let gameCount: number = +$(`.js-game`).text(),
+                question: boolean =
+                    (this.checkDraw() && !this.game)
+                        ? confirm(`Draw game! Do you want to start a new one?`)
+                        : confirm(`${this.game.winner === 1 ? "player" : "cpu"} wins! Do you want to start new game?`);
+            if (question) {
+                $(`.js-game`).text(++gameCount);
+                this.start();
+            }
+        }, 1000);
     }
 
 }

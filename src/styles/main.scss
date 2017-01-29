@@ -72,17 +72,58 @@ h1, .h1 {
     line-height: 100%;
     position: relative;
     z-index: 1;
-    &:hover {
+    &.active {
       background-color: $blue;
+      &.denied {
+        background-color: $red;
+      }
     }
     &.zero:hover {
       background-color: $red;
     }
   }
-  .canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
+
+  &[data-win-method="1"] {
+    [data-square="0"], [data-square="1"], [data-square="2"] {
+      background-color: $green;
+    }
+  }
+  &[data-win-method="2"] {
+    [data-square="3"], [data-square="4"], [data-square="5"] {
+      background-color: $green;
+    }
+  }
+  &[data-win-method="3"] {
+    [data-square="6"], [data-square="7"], [data-square="8"] {
+      background-color: $green;
+    }
+  }
+
+  &[data-win-method="4"] {
+    [data-square="0"], [data-square="3"], [data-square="6"] {
+      background-color: $green;
+    }
+  }
+  &[data-win-method="5"] {
+    [data-square="1"], [data-square="4"], [data-square="7"] {
+      background-color: $green;
+    }
+  }
+  &[data-win-method="6"] {
+    [data-square="2"], [data-square="5"], [data-square="8"] {
+      background-color: $green;
+    }
+  }
+
+  &[data-win-method="7"] {
+    [data-square="0"], [data-square="4"], [data-square="8"] {
+      background-color: $green;
+    }
+  }
+  &[data-win-method="8"] {
+    [data-square="2"], [data-square="4"], [data-square="6"] {
+      background-color: $green;
+    }
   }
 }
 
